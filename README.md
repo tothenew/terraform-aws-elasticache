@@ -28,7 +28,7 @@ For Redis cluster select engine as "redis".
 ```
 ```hcl
 module "terraform-aws-elasticache" {
-  source             = "https://github.com/tothenew/terraform-aws-elasticache"
+  source             = "git::https://github.com/tothenew/terraform-aws-elasticache"
   env                = "dev"
   name               = "Redis-cluster"
   engine             = "redis"
@@ -46,7 +46,7 @@ For Memcached cluster select engine as "memcached"
 ```
 ```hcl
 module "terraform-aws-elasticache" {
-  source             = "https://github.com/tothenew/terraform-aws-elasticache"
+  source             = "git::https://github.com/tothenew/terraform-aws-elasticache"
   env                = "dev"
   name               = "Memcached-cluster"
   engine             = "memcached"
