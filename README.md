@@ -23,7 +23,10 @@ The following content needed to be created and managed:
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 3.0 |
 
 ## Usages
+```
 For Redis cluster select engine as "redis".
+```
+```hcl
 module "terraform-aws-elasticache" {
   source             = "https://github.com/tothenew/terraform-aws-elasticache"
   env                = "dev"
@@ -37,8 +40,11 @@ module "terraform-aws-elasticache" {
   node_type          = "cache.r4.large"
   cluster_version    = "3.2.10"
 }
-
+```
+```
 For Memcached cluster select engine as "memcached"
+```
+```hcl
 module "terraform-aws-elasticache" {
   source             = "https://github.com/tothenew/terraform-aws-elasticache"
   env                = "dev"
@@ -52,7 +58,7 @@ module "terraform-aws-elasticache" {
   node_type          = "cache.r4.large"
   cluster_version    = "1.6.12"
 }
-
+```
 ## Providers
 
 No providers.
