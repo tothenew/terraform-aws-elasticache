@@ -22,6 +22,43 @@ The following content needed to be created and managed:
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.10 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 3.0 |
 
+## Usages
+```
+For Redis cluster select engine as "redis".
+```
+```hcl
+module "terraform-aws-elasticache" {
+  source             = "git::https://github.com/tothenew/terraform-aws-elasticache"
+  env                = "dev"
+  name               = "Redis-cluster"
+  engine             = "redis"
+  clusters           = "2"
+  failover           = "true"
+  subnets            = ["subnet-1111111", "subnet-222222", "subnet-3333333", "subnet-444444"]
+  vpc_id             = "vpc-0000000000"
+  availability_zones = ["us-east-1a", "us-east-1b"]
+  node_type          = "cache.r4.large"
+  cluster_version    = "3.2.10"
+}
+```
+```
+For Memcached cluster select engine as "memcached"
+```
+```hcl
+module "terraform-aws-elasticache" {
+  source             = "git::https://github.com/tothenew/terraform-aws-elasticache"
+  env                = "dev"
+  name               = "Memcached-cluster"
+  engine             = "memcached"
+  clusters           = "2"
+  failover           = "true"
+  subnets            = ["subnet-1111111", "subnet-222222", "subnet-3333333", "subnet-444444"]
+  vpc_id             = "vpc-0000000000"
+  availability_zones = ["us-east-1a", "us-east-1b"]
+  node_type          = "cache.r4.large"
+  cluster_version    = "1.6.12"
+}
+```
 ## Providers
 
 No providers.
