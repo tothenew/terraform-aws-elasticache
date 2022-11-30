@@ -3,8 +3,8 @@ data "aws_vpc" "vpc" {
 }
 
 locals {
-  vpc_name = lookup(data.aws_vpc.vpc.tags, "Name", var.vpc_id)
-  parameter_group_family = substr(var.cluster_version, 0,1) < 6 ?  "redis${replace(var.cluster_version, "/\\.[\\d]+$/", "")}": "redis${replace(var.cluster_version, "/\\.[\\d]+$/", "")}.x"
+  vpc_name               = lookup(data.aws_vpc.vpc.tags, "Name", var.vpc_id)
+  parameter_group_family = substr(var.cluster_version, 0, 1) < 6 ? "redis${replace(var.cluster_version, "/\\.[\\d]+$/", "")}" : "redis${replace(var.cluster_version, "/\\.[\\d]+$/", "")}.x"
 }
 
 resource "random_id" "salt" {
@@ -42,25 +42,25 @@ resource "aws_elasticache_replication_group" "redis" {
   notification_topic_arn        = var.notification_topic_arn
   snapshot_window               = var.snapshot_window
   snapshot_retention_limit      = var.snapshot_retention_limit
-  tags                          = merge(tomap({"Name" = format("tf-elasticache-%s-%s", var.name, local.vpc_name)}), var.tags)
+  tags                          = merge(tomap({ "Name" = format("tf-elasticache-%s-%s", var.name, local.vpc_name) }), var.tags)
 }
 
 resource "aws_elasticache_cluster" "memcached" {
-  count                         = var.engine == "memcached" ? 1 : 0
-  cluster_id                    = format("%.20s", "${var.name}-${var.env}")
-  node_type                     = var.node_type
-  auto_minor_version_upgrade    = var.auto_minor_version_upgrade
-  engine                        = var.engine
-  engine_version                = var.cluster_version
-  port                          = var.port
-  parameter_group_name          = var.parameter_group_name
-  subnet_group_name             = aws_elasticache_subnet_group.redis_subnet_group.id
-  security_group_names          = var.security_group_names
-  security_group_ids            = [aws_security_group.redis_security_group.id]
-  maintenance_window            = var.maintenance_window
-  notification_topic_arn        = var.notification_topic_arn
-  num_cache_nodes               = 2
-  tags                          = merge(tomap({"Name" = format("tf-elasticache-%s-%s", var.name, local.vpc_name)}), var.tags)
+  count                      = var.engine == "memcached" ? 1 : 0
+  cluster_id                 = format("%.20s", "${var.name}-${var.env}")
+  node_type                  = var.node_type
+  auto_minor_version_upgrade = var.auto_minor_version_upgrade
+  engine                     = var.engine
+  engine_version             = var.cluster_version
+  port                       = var.port
+  parameter_group_name       = var.parameter_group_name
+  subnet_group_name          = aws_elasticache_subnet_group.redis_subnet_group.id
+  security_group_names       = var.security_group_names
+  security_group_ids         = [aws_security_group.redis_security_group.id]
+  maintenance_window         = var.maintenance_window
+  notification_topic_arn     = var.notification_topic_arn
+  num_cache_nodes            = 2
+  tags                       = merge(tomap({ "Name" = format("tf-elasticache-%s-%s", var.name, local.vpc_name) }), var.tags)
 }
 
 resource "aws_elasticache_subnet_group" "redis_subnet_group" {

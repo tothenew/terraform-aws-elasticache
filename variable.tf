@@ -1,7 +1,7 @@
 variable "engine" {
   description = "Specify wheather the engine is memcached or redis"
-  type = string
-  
+  type        = string
+
 }
 variable "apply_immediately" {
   description = "Specifies whether any modifications are applied immediately, or during the next maintenance window. Default is false."
