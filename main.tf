@@ -31,7 +31,7 @@ resource "aws_elasticache_replication_group" "redis" {
   auth_token                    = var.transit_encryption_enabled ? var.auth_token : null
   engine_version                = var.cluster_version
   port                          = var.port
-  parameter_group_name          = var.parameter_group_name == "null" ? null : aws_elasticache_parameter_group.pg_group.name
+  parameter_group_name          = var.parameter_group_name
   subnet_group_name             = aws_elasticache_subnet_group.redis_subnet_group.id
   security_group_names          = var.security_group_names
   security_group_ids            = [aws_security_group.redis_security_group.id]
@@ -64,8 +64,8 @@ resource "aws_elasticache_cluster" "memcached" {
 }
 
 resource "aws_elasticache_parameter_group" "pg_group" {
-  count = var.pg_name == "null" ? 0 :1
-  name   = var.pg_name
+  count = var.pg_family == "null" ? 0 :1
+  name   = var.parameter_group_name
   family = var.pg_family
 }
 
