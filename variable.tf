@@ -14,6 +14,14 @@ variable "allowed_cidr" {
   type        = list(string)
   default     = ["127.0.0.1/32"]
 }
+variable "pg_name" {
+  description = "env to deploy into, should typically dev/staging/prod"
+  type        = string
+}
+variable "pg_family" {
+  description = "env to deploy into, should typically dev/staging/prod"
+  type        = string
+}
 
 variable "allowed_security_groups" {
   description = "A list of Security Group ID's to allow access to."

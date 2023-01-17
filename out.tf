@@ -17,3 +17,8 @@
 output "redis_endpoint" {
   value = aws_elasticache_replication_group.redis.primary_endpoint_address
 }
+
+output "redis_subnet_group_name" {
+  value = aws_elasticache_subnet_group.redis_subnet_group.name
+}
+
