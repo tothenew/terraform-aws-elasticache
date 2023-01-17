@@ -17,12 +17,12 @@ variable "allowed_cidr" {
 variable "pg_name" {
   description = "env to deploy into, should typically dev/staging/prod"
   type        = string
-  default=null
+  default="null"
 }
 variable "pg_family" {
   description = "env to deploy into, should typically dev/staging/prod"
   type        = string
-  default=null
+  default="null"
 }
 
 variable "allowed_security_groups" {
