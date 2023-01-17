@@ -64,7 +64,7 @@ resource "aws_elasticache_cluster" "memcached" {
 }
 
 resource "aws_elasticache_parameter_group" "pg_group" {
-  count = var.pg_name == "null" ? 0 :1
+  count = var.pg_name == null ? 0 :1
   name   = var.pg_name
   family = var.pg_family
 }
