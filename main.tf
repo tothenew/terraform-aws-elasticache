@@ -21,7 +21,7 @@ resource "aws_elasticache_replication_group" "redis" {
   number_cache_clusters         = var.clusters
   node_type                     = var.node_type
   automatic_failover_enabled    = var.failover
-  auto_minor_version_upgrade    = var.auto_minor_version_upgrade
+  #auto_minor_version_upgrade    = var.auto_minor_version_upgrade
   availability_zones            = var.availability_zones
   multi_az_enabled              = var.multi_az_enabled
   engine                        = var.engine
