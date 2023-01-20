@@ -15,6 +15,12 @@ variable "allowed_cidr" {
   default     = ["127.0.0.1/32"]
 }
 
+variable "pg_family" {
+  description = "Please specify the name of the pg"
+  type        = string
+  default="null"
+}
+
 variable "allowed_security_groups" {
   description = "A list of Security Group ID's to allow access to."
   type        = list(string)

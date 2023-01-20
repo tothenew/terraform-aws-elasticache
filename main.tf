@@ -63,6 +63,12 @@ resource "aws_elasticache_cluster" "memcached" {
   tags                          = merge(tomap({"Name" = format("tf-elasticache-%s-%s", var.name, local.vpc_name)}), var.tags)
 }
 
+resource "aws_elasticache_parameter_group" "pg_group" {
+  count = var.pg_family == "null" ? 0 :1
+  name   = var.parameter_group_name
+  family = var.pg_family
+}
+
 resource "aws_elasticache_subnet_group" "redis_subnet_group" {
   name       = replace(format("%.255s", lower(replace("tf-redis-${var.name}-${var.env}-${local.vpc_name}", "_", "-"))), "/\\s/", "-")
   subnet_ids = var.subnets
