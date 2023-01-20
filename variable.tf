@@ -16,7 +16,7 @@ variable "allowed_cidr" {
 }
 
 variable "pg_family" {
-  description = "env to deploy into, should typically dev/staging/prod"
+  description = "Please specify the name of the pg"
   type        = string
   default="null"
 }
