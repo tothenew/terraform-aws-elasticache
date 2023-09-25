@@ -18,7 +18,7 @@ resource "aws_elasticache_replication_group" "redis" {
   count                         = var.engine == "redis" ? 1 : 0
   replication_group_id          = format("%.20s", "${var.name}-${var.env}")
   description                   = "Terraform-managed ElastiCache replication group for ${var.name}-${var.env}-${local.vpc_name}"
-  number_cache_clusters         = 2
+  #number_cache_clusters         = 2
   node_type                     = var.node_type
   automatic_failover_enabled    = var.failover
   #auto_minor_version_upgrade    = var.auto_minor_version_upgrade
