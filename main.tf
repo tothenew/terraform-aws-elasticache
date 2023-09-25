@@ -18,7 +18,7 @@ resource "aws_elasticache_replication_group" "redis" {
   count                         = var.engine == "redis" ? 1 : 0
   replication_group_id          = format("%.20s", "${var.name}-${var.env}")
   description                   = "Terraform-managed ElastiCache replication group for ${var.name}-${var.env}-${local.vpc_name}"
-  number_cache_clusters         = var.clusters
+  #number_cache_clusters         = var.clusters
   node_type                     = var.node_type
   automatic_failover_enabled    = var.failover
   #auto_minor_version_upgrade    = var.auto_minor_version_upgrade
@@ -55,7 +55,7 @@ resource "aws_elasticache_cluster" "memcached" {
   port                          = var.port
   parameter_group_name          = var.parameter_group_name
   subnet_group_name             = aws_elasticache_subnet_group.redis_subnet_group.id
-  security_group_names          = var.security_group_names
+  #security_group_names          = var.security_group_names
   security_group_ids            = [aws_security_group.redis_security_group.id]
   maintenance_window            = var.maintenance_window
   notification_topic_arn        = var.notification_topic_arn
