@@ -55,6 +55,7 @@ variable "failover" {
 
 variable "multi_az_enabled" {
   type    = bool
+  description = "By default enabled if Cluster mode is enabled."
   default = false
 }
 
