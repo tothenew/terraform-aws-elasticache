@@ -3,7 +3,7 @@ module "terraform-aws-elasticache" {
   env                = "dev"
   name               = "Redis-cluster"
   engine             = "redis"
-  cluster_mode_enabled = false
+  cluster_mode_enabled = true
   clusters           = "2"
   failover           = "true"
   subnets            = ["subnet-043d59b3957d49e1d", "subnet-093641ce3f549831e", "subnet-0d911d25c86c0a429"]
