@@ -51,13 +51,13 @@ variable "cluster_mode_enabled" {
 variable "cluster_mode_replicas_per_node_group" {
   type        = number
   description = "Number of replica nodes in each node group."
-  default     = 1
+  default     = 2
 }
 
 variable "cluster_mode_num_node_groups" {
   type        = number
   description = "Number of node groups (shards) for this Redis replication group."
-  default     = 2
+  default     = 1
 }
 
 variable "failover" {
