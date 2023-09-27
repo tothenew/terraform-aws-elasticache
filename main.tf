@@ -19,6 +19,8 @@ resource "aws_elasticache_replication_group" "redis" {
   replication_group_id          = format("%.20s", "${var.name}-${var.env}")
   description                   = "Terraform-managed ElastiCache replication group for ${var.name}-${var.env}-${local.vpc_name}"
   num_cache_clusters            = var.cluster_mode_enabled ? null : var.clusters
+  num_node_groups               = var.cluster_mode_enabled ? var.cluster_mode_num_node_groups : null
+  replicas_per_node_group       = var.cluster_mode_enabled ? var.cluster_mode_replicas_per_node_group : null
   node_type                     = var.node_type
   automatic_failover_enabled    = var.cluster_mode_enabled ? true : var.failover
   #auto_minor_version_upgrade    = var.auto_minor_version_upgrade
