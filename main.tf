@@ -31,7 +31,7 @@ resource "aws_elasticache_replication_group" "redis" {
   kms_key_id                    = var.kms_key_id
   transit_encryption_enabled    = var.transit_encryption_enabled
   auth_token                    = var.transit_encryption_enabled ? var.auth_token : null
-  engine_version                = var.cluster_version
+  engine_version                = var.cluster_version_redis
   port                          = var.port
   parameter_group_name          = var.parameter_group_name
   subnet_group_name             = aws_elasticache_subnet_group.redis_subnet_group.id
@@ -53,7 +53,7 @@ resource "aws_elasticache_cluster" "memcached" {
   node_type                     = var.node_type
   auto_minor_version_upgrade    = var.auto_minor_version_upgrade
   engine                        = var.engine
-  engine_version                = var.cluster_version
+  engine_version                = var.cluster_version_memcached
   port                          = var.port
   parameter_group_name          = var.parameter_group_name
   subnet_group_name             = aws_elasticache_subnet_group.redis_subnet_group.id

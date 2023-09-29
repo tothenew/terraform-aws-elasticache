@@ -88,10 +88,16 @@ variable "subnets" {
 }
 
 # might want a map
-variable "cluster_version" {
+variable "cluster_version_redis" {
   description = "Redis version to use, defaults to 3.2.10"
   type        = string
   default     = "3.2.10"
+}
+
+variable "cluster_version_memcached" {
+  description = "Memecached version to use."
+  type        = string
+  default     = "1.6.17"
 }
 
 variable "vpc_id" {
