@@ -49,7 +49,7 @@ resource "aws_elasticache_replication_group" "redis" {
 
 resource "aws_elasticache_cluster" "memcached" {
   count                         = var.engine == "memcached" ? 1 : 0
-  cluster_id                    = format("%.20s", "${var.name}-${var.env}")
+  cluster_id                    = format("%.20s", "${lower(var.name)}-${lower(var.env)}")
   node_type                     = var.node_type
   auto_minor_version_upgrade    = var.auto_minor_version_upgrade
   engine                        = var.engine
