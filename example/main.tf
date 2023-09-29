@@ -1,8 +1,8 @@
 module "terraform-aws-elasticache" {
   source             = "git::https://github.com/narenderttn/terraform-aws-elasticache"
   env                = "dev"
-  name               = "Redis-cluster"
-  engine             = "redis"
+  name               = "Memcached-cluster"
+  engine             = "memcached"
   cluster_mode_enabled = true
   clusters           = "2"
   failover           = "true"
