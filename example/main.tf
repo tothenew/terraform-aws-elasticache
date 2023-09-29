@@ -10,6 +10,5 @@ module "terraform-aws-elasticache" {
   vpc_id             = "vpc-0c7ca42512bbbb3df"
   availability_zones = ["us-east-1a", "us-east-1b","us-east-1c"]
   node_type          = "cache.r7g.large"
-  cluster_version_redis    = "7.0"
-  cluster_version_memcached = "1.6.17"
+  cluster_version    = "1.6.17"
 }

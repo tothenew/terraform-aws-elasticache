@@ -88,7 +88,7 @@ variable "subnets" {
 }
 
 # might want a map
-variable "cluster_version_redis" {
+variable "cluster_version" {
   description = "Redis version to use, defaults to 3.2.10"
   type        = string
   default     = "3.2.10"
