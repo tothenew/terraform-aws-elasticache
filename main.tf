@@ -7,12 +7,12 @@ locals {
   parameter_group_family = substr(var.cluster_version, 0,1) < 6 ?  "redis${replace(var.cluster_version, "/\\.[\\d]+$/", "")}": "redis${replace(var.cluster_version, "/\\.[\\d]+$/", "")}.x"
 }
 
-resource "random_id" "salt" {
-  byte_length = 8
-  keepers = {
-    cluster_version = var.cluster_version
-  }
-}
+# resource "random_id" "salt" {
+#   byte_length = 8
+#   keepers = {
+#     cluster_version = var.cluster_version
+#   }
+# }
 
 resource "aws_elasticache_replication_group" "redis" {
   count                         = var.engine == "redis" ? 1 : 0
