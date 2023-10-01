@@ -51,7 +51,7 @@ variable "cluster_mode_enabled" {
 variable "cluster_mode_replicas_per_node_group" {
   type        = number
   description = "Number of replica nodes in each node group."
-  default     = 2
+  default     = 1
 }
 
 variable "cluster_mode_num_node_groups" {
@@ -67,7 +67,7 @@ variable "failover" {
 
 variable "multi_az_enabled" {
   type    = bool
-  description = "By default enabled if Cluster mode is enabled."
+  description = "By default enabled, if Cluster mode is enabled."
   default = false
 }
 
@@ -89,15 +89,9 @@ variable "subnets" {
 
 # might want a map
 variable "cluster_version" {
-  description = "Redis version to use, defaults to 3.2.10"
+  description = "Redis version to use."
   type        = string
-  default     = "3.2.10"
-}
-
-variable "cluster_version_memcached" {
-  description = "Memecached version to use."
-  type        = string
-  default     = "1.6.17"
+  default     = "6.2"
 }
 
 variable "vpc_id" {
