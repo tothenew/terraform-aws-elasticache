@@ -17,12 +17,12 @@ resource "random_id" "salt" {
 resource "aws_elasticache_replication_group" "redis" {
   count                         = var.engine == "redis" ? 1 : 0
   replication_group_id          = format("%.20s", "${var.name}-${var.env}")
-  replication_group_description = "Terraform-managed ElastiCache replication group for ${var.name}-${var.env}-${local.vpc_name}"
-  number_cache_clusters         = var.clusters
+  description                   = "Terraform-managed ElastiCache replication group for ${var.name}-${var.env}-${local.vpc_name}"
+  num_cache_clusters            = var.cluster_mode_enabled ? null : var.clusters
+  num_node_groups               = var.cluster_mode_enabled ? var.cluster_mode_num_node_groups : null
+  replicas_per_node_group       = var.cluster_mode_enabled ? var.cluster_mode_replicas_per_node_group : null
   node_type                     = var.node_type
-  automatic_failover_enabled    = var.failover
-  #auto_minor_version_upgrade    = var.auto_minor_version_upgrade
-  availability_zones            = var.availability_zones
+  automatic_failover_enabled    = var.cluster_mode_enabled ? true : var.failover
   multi_az_enabled              = var.multi_az_enabled
   engine                        = var.engine
   at_rest_encryption_enabled    = var.at_rest_encryption_enabled
@@ -33,7 +33,6 @@ resource "aws_elasticache_replication_group" "redis" {
   port                          = var.port
   parameter_group_name          = var.parameter_group_name
   subnet_group_name             = aws_elasticache_subnet_group.redis_subnet_group.id
-  security_group_names          = var.security_group_names
   security_group_ids            = [aws_security_group.redis_security_group.id]
   snapshot_arns                 = var.snapshot_arns
   snapshot_name                 = var.snapshot_name
@@ -47,7 +46,7 @@ resource "aws_elasticache_replication_group" "redis" {
 
 resource "aws_elasticache_cluster" "memcached" {
   count                         = var.engine == "memcached" ? 1 : 0
-  cluster_id                    = format("%.20s", "${var.name}-${var.env}")
+  cluster_id                    = format("%.20s", "${lower(var.name)}-${lower(var.env)}")
   node_type                     = var.node_type
   auto_minor_version_upgrade    = var.auto_minor_version_upgrade
   engine                        = var.engine
@@ -55,7 +54,6 @@ resource "aws_elasticache_cluster" "memcached" {
   port                          = var.port
   parameter_group_name          = var.parameter_group_name
   subnet_group_name             = aws_elasticache_subnet_group.redis_subnet_group.id
-  security_group_names          = var.security_group_names
   security_group_ids            = [aws_security_group.redis_security_group.id]
   maintenance_window            = var.maintenance_window
   notification_topic_arn        = var.notification_topic_arn

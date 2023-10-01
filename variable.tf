@@ -1,7 +1,7 @@
 variable "engine" {
   description = "Specify wheather the engine is memcached or redis"
   type = string
-  
+  default = "redis"
 }
 variable "apply_immediately" {
   description = "Specifies whether any modifications are applied immediately, or during the next maintenance window. Default is false."
@@ -42,6 +42,24 @@ variable "clusters" {
   type        = string
 }
 
+variable "cluster_mode_enabled" {
+  type        = bool
+  description = "Flag to enable/disable creation of a native redis cluster. `automatic_failover_enabled` must be set to `true`. Only 1 `cluster_mode` block is allowed"
+  default     = true
+}
+
+variable "cluster_mode_replicas_per_node_group" {
+  type        = number
+  description = "Number of replica nodes in each node group."
+  default     = 1
+}
+
+variable "cluster_mode_num_node_groups" {
+  type        = number
+  description = "Number of node groups (shards) for this Redis replication group."
+  default     = 1
+}
+
 variable "failover" {
   type    = bool
   default = false
@@ -49,6 +67,7 @@ variable "failover" {
 
 variable "multi_az_enabled" {
   type    = bool
+  description = "By default enabled, if Cluster mode is enabled."
   default = false
 }
 
@@ -70,9 +89,9 @@ variable "subnets" {
 
 # might want a map
 variable "cluster_version" {
-  description = "Redis version to use, defaults to 3.2.10"
+  description = "Redis version to use."
   type        = string
-  default     = "3.2.10"
+  default     = "6.2"
 }
 
 variable "vpc_id" {

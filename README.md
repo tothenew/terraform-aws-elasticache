@@ -28,17 +28,18 @@ For Redis cluster select engine as "redis".
 ```
 ```hcl
 module "terraform-aws-elasticache" {
-  source             = "git::https://github.com/tothenew/terraform-aws-elasticache"
-  env                = "dev"
-  name               = "Redis-cluster"
-  engine             = "redis"
-  clusters           = "2"
-  failover           = "true"
-  subnets            = ["subnet-1111111", "subnet-222222", "subnet-3333333", "subnet-444444"]
-  vpc_id             = "vpc-0000000000"
-  availability_zones = ["us-east-1a", "us-east-1b"]
-  node_type          = "cache.r4.large"
-  cluster_version    = "3.2.10"
+  source                = "git::https://github.com/tothenew/terraform-aws-elasticache"
+  env                   = "dev"
+  name                  = "Redis-cluster"
+  engine                = "redis"
+  cluster_mode_enabled  = true
+  clusters              = "2"
+  failover              = "true"
+  subnets               = ["subnet-043d59b3957d49", "subnet-093641ce3f549", "subnet-0d911d25c86c0"]
+  vpc_id                = "vpc-0c7ca42512bbb"
+  availability_zones    = ["us-east-1a", "us-east-1b","us-east-1c"]
+  node_type             = "cache.r7g.large"
+  cluster_version       = "6.2"
 }
 ```
 ```
@@ -46,17 +47,18 @@ For Memcached cluster select engine as "memcached"
 ```
 ```hcl
 module "terraform-aws-elasticache" {
-  source             = "git::https://github.com/tothenew/terraform-aws-elasticache"
-  env                = "dev"
-  name               = "Memcached-cluster"
-  engine             = "memcached"
-  clusters           = "2"
-  failover           = "true"
-  subnets            = ["subnet-1111111", "subnet-222222", "subnet-3333333", "subnet-444444"]
-  vpc_id             = "vpc-0000000000"
-  availability_zones = ["us-east-1a", "us-east-1b"]
-  node_type          = "cache.r4.large"
-  cluster_version    = "1.6.12"
+  source                = "git::https://github.com/tothenew/terraform-aws-elasticache"
+  env                   = "dev"
+  name                  = "Redis-cluster"
+  engine                = "redis"
+  cluster_mode_enabled  = true
+  clusters              = "2"
+  failover              = "true"
+  subnets               = ["subnet-043d59b3957d49", "subnet-093641ce3f549", "subnet-0d911d25c86c0"]
+  vpc_id                = "vpc-0c7ca42512bbb"
+  availability_zones    = ["us-east-1a", "us-east-1b","us-east-1c"]
+  node_type             = "cache.r7g.large"
+  cluster_version       = "1.6.17"
 }
 ```
 ## Providers
