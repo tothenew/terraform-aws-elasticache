@@ -28,6 +28,6 @@ maintenance_window             = "fri:08:00-fri:09:00"
 auto_minor_version_upgrade     = true
 notification_topic_arn         = ""
 tags = {
-  "Project" = "XYZ"
-  "Environment" = "Dev"
+  "Project" = ""
+  "Environment" = ""
 }
