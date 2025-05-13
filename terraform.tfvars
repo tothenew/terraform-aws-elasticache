@@ -1,5 +1,5 @@
 name                           = "TTN"
-env                            = "dev"
+env                            = ""
 engine                         = "redis"  
 vpc_id                         = "vpc-0123456789"
 subnets                        = ["subnet-0123456789", "subnet-0123456789"]
