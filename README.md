@@ -7,20 +7,22 @@ This is a elasticache to use for baseline. The default actions will provide upda
 
 The following content needed to be created and managed:
  - Introduction
-     - Explaination of module 
-     - Intended users
- - Resource created and managed by this module
+     - This Terraform module provisions an AWS ElastiCache cluster supporting both Redis (including replication group setup) and Memcached engines. It is designed for secure, resilient, and customizable deployment of ElastiCache within a given VPC. The module supports both encryption in-transit and at-rest, custom parameter groups, snapshot configuration, and maintenance settings.
+
+
+ - Depending on the configuration and selected engine (Redis or Memcached), the module creates and manages the following resources:
+    - aws_elasticache_replication_group – for Redis clusters with replication and high availability.
+    - aws_elasticache_cluster – for Memcached clusters.
+    - aws_elasticache_parameter_group – optional, for defining custom parameters per engine family.
+    - aws_elasticache_subnet_group – to define subnets used by the cache cluster.
+    - aws_security_group – to control network access to the cluster.
+    - random_id – to salt and version the configuration dynamically.
+    - data.aws_vpc – to retrieve VPC tags and derive naming context.
+
+
  - Example Usages
 
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.72 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.10 |
-| <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 3.0 |
 
 ## Usages
 ```
@@ -29,16 +31,9 @@ For Redis cluster select engine as "redis".
 ```hcl
 module "terraform-aws-elasticache" {
   source             = "git::https://github.com/tothenew/terraform-aws-elasticache"
-  env                = "dev"
-  name               = "Redis-cluster"
   engine             = "redis"
-  clusters           = "2"
-  failover           = "true"
   subnets            = ["subnet-1111111", "subnet-222222", "subnet-3333333", "subnet-444444"]
   vpc_id             = "vpc-0000000000"
-  availability_zones = ["us-east-1a", "us-east-1b"]
-  node_type          = "cache.r4.large"
-  cluster_version    = "3.2.10"
 }
 ```
 ```
@@ -47,18 +42,19 @@ For Memcached cluster select engine as "memcached"
 ```hcl
 module "terraform-aws-elasticache" {
   source             = "git::https://github.com/tothenew/terraform-aws-elasticache"
-  env                = "dev"
-  name               = "Memcached-cluster"
   engine             = "memcached"
-  clusters           = "2"
-  failover           = "true"
   subnets            = ["subnet-1111111", "subnet-222222", "subnet-3333333", "subnet-444444"]
   vpc_id             = "vpc-0000000000"
-  availability_zones = ["us-east-1a", "us-east-1b"]
-  node_type          = "cache.r4.large"
-  cluster_version    = "1.6.12"
 }
 ```
+
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.72 |
+
 ## Providers
 
 No providers.
