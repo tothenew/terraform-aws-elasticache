@@ -17,12 +17,12 @@ resource "random_id" "salt" {
 resource "aws_elasticache_replication_group" "redis" {
   count                         = var.engine == "redis" ? 1 : 0
   replication_group_id          = format("%.20s", "${var.name}-${var.env}")
-  replication_group_description = "Terraform-managed ElastiCache replication group for ${var.name}-${var.env}-${local.vpc_name}"
-  number_cache_clusters         = var.clusters
+  description = "Terraform-managed ElastiCache replication group for ${var.name}-${var.env}-${local.vpc_name}"
+  num_cache_clusters         = var.clusters
   node_type                     = var.node_type
   automatic_failover_enabled    = var.failover
   #auto_minor_version_upgrade    = var.auto_minor_version_upgrade
-  availability_zones            = var.availability_zones
+  preferred_cache_cluster_azs   = var.availability_zones
   multi_az_enabled              = var.multi_az_enabled
   engine                        = var.engine
   at_rest_encryption_enabled    = var.at_rest_encryption_enabled
@@ -55,7 +55,7 @@ resource "aws_elasticache_cluster" "memcached" {
   port                          = var.port
   parameter_group_name          = var.parameter_group_name
   subnet_group_name             = aws_elasticache_subnet_group.redis_subnet_group.id
-  security_group_names          = var.security_group_names
+#  security_group_names          = var.security_group_names
   security_group_ids            = [aws_security_group.redis_security_group.id]
   maintenance_window            = var.maintenance_window
   notification_topic_arn        = var.notification_topic_arn
